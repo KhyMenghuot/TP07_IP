@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EX1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Battambang&family=Julee&family=Shantell+Sans&family=Zeyada&display=swap');
+        * {
+            margin: 0;
+        }
+        
+        .wrapper {
+            position: relative;
+            width: 500px;
+            height: 450px;
+            margin: auto;
+            padding: 20px;
+            border: 5px solid black;
+            box-shadow: 0 0 50px skyblue;
+        }
+        
+        .top {
+            padding-bottom: 20px;
+            text-align: center;
+        }
+        
+        .top .img {
+            font-size: 100px;
+        }
+        
+        .top p {
+            font-size: 50px;
+            font-family: 'Julee', cursive;
+            padding: 10px;
+        }
+        
+        .top button {
+            padding: 10px;
+            color: white;
+            background-color: blue;
+            font-family: 'Julee', cursive;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        
+        .container {
+            position: absolute;
+            width: 60%;
+            height: 170px;
+            border-radius: 10px;
+            background-color: rgb(243, 235, 235);
+            left: 20%;
+        }
+        
+        #activity-name {
+            text-align: center;
+            font-weight: bold;
+            padding-bottom: 5px;
+        }
+        
+        i {
+            color: blue;
+            margin: 5px;
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="top">
+            <div class="img">😃</div>
+            <p>Are you boring?</p>
+            <button onclick="getMeAnActivity()">Get me an activity</button>
+            <div id="loading-text">Loading...</div>
+        </div>
+        <div class="container">
+            <div id="loading-text"></div>
+            <div id="activity-name"></div>
+            <div id="type"></div>
+            <div id="participants"></div>
+            <div id="price"></div>
+            <div id="link"></div>
+        </div>
+    </div>
+    <script>
+        const loadingTextEle = document.getElementById("loading-text");
+        const activityNameEle = document.getElementById("activity-name");
+        const type = document.getElementById("type");
+        const participants = document.getElementById("participants");
+        const price = document.getElementById("price");
+        const link = document.getElementById("link");
+
+        // activityNameEle.innerHTML = "";
+
+        function getMeAnActivity() {
+            loadingTextEle.hidden = false;
+
+            fetch("https://www.boredapi.com/api/activity").then(async(res) => {
+                let data = await res.json();
+                loadingTextEle.hidden = true;
+                activityNameEle.innerHTML = data.activity;
+                type.innerHTML = ` <i class="fa-solid fa-tag"></i> Type: ` + data.type;
+                participants.innerHTML = `<i class="fa-solid fa-users"></i> Participant:` + data.participants;
+                price.innerHTML = ` <i class="fa fa-usd" aria-hidden="true"></i>   Price:` + data.price;
+                link.innerHTML = ` <i class="fa-solid fa-link"></i>  link:` + data.link;
+
+            });
+        }
+    </script>
+
+</body>
+
+</html>
