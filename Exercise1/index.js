@@ -1,7 +1,7 @@
 const express = require('express')
 const fs = require('fs')
 const app = express()
-import 
+
 
 app.get('/', function(req, res) {
     fs.readFile('index.html', 'utf-8', (err, data) => {
@@ -14,6 +14,7 @@ app.get('/', function(req, res) {
     });
 
 })
-app.listen(3000, () => {
-    console.log("there server is running on port 3000")
+const port = 3000
+app.listen(port, () => {
+    console.log("Running http://localhost:" + port)
 })
